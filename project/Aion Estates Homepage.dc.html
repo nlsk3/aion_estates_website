@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/aion-estates-design-system-48e3d189-8b5a-485c-b1f0-d951896638ca/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/aion-estates-design-system-48e3d189-8b5a-485c-b1f0-d951896638ca/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/aion-estates-design-system-48e3d189-8b5a-485c-b1f0-d951896638ca/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/aion-estates-design-system-48e3d189-8b5a-485c-b1f0-d951896638ca/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/aion-estates-design-system-48e3d189-8b5a-485c-b1f0-d951896638ca/tokens/effects.css">
+  <link rel="stylesheet" href="_ds/aion-estates-design-system-48e3d189-8b5a-485c-b1f0-d951896638ca/styles.css">
+  <script src="_ds/aion-estates-design-system-48e3d189-8b5a-485c-b1f0-d951896638ca/_ds_bundle.js"></script>
+  <style>
+    html, body { margin: 0; padding: 0; }
+    body { background: var(--cream); -webkit-font-smoothing: antialiased; }
+    * { box-sizing: border-box; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .85s var(--ease), transform .85s var(--ease); }
+    .reveal.in { opacity: 1; transform: none; }
+    @keyframes aion-scrolldot { 0% { transform: translateY(0); opacity: .85; } 50% { transform: translateY(9px); opacity: .25; } 100% { transform: translateY(0); opacity: .85; } }
+    .aion-pillars { display: flex; align-items: stretch; }
+    @media (max-width: 820px) {
+      .aion-pillars { flex-direction: column; gap: 44px; }
+      .aion-pillars > * { padding-left: 0 !important; padding-right: 0 !important; }
+      .aion-vrule { display: none !important; }
+    }
+    @media (max-width: 760px) { .aion-navlinks { display: none !important; } }
+    [aria-label="Aion Estates"] > span:last-child { font-size: 12px !important; }
+    #approach [data-aion-label] { font-size: 14px !important; letter-spacing: 0.22em !important; }
+    #approach .aion-pillars span[style*="margin-bottom: 20px"] { font-size: 20px !important; }
+    image-slot#hero-band { display: block !important; width: 100% !important; height: 100% !important; }
+    image-slot#market-photo { display: block !important; width: 100% !important; height: 100% !important; }
+  </style>
+</helmet>
+<div ref="{{ setRoot }}" style="font-family: var(--font-sans); background: var(--cream); color: var(--charcoal); overflow-x: hidden;">
+
+  <div role="navigation" ref="{{ setNav }}" style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background .45s ease, box-shadow .45s ease; background: transparent; box-shadow: none;">
+   <div style="display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 84px; margin: 0 var(--gutter);">
+    <span onClick="{{ goTo.hero }}" style="cursor: pointer; display: inline-flex;">
+      <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Wordmark" tone="{{ wordmarkTone }}" hint-size="64px,40px"></x-import>
+    </span>
+    <ul class="aion-navlinks" style="list-style: none; display: flex; gap: 40px; align-items: center; margin: 0; padding: 0;">
+      <li><a onClick="{{ goTo.philosophy }}" style="cursor: pointer; text-decoration: none; font-family: var(--font-sans); font-size: 11px; font-weight: 400; letter-spacing: var(--tracking-link); text-transform: uppercase; color: rgba(255,255,255,0.82); color: {{ linkColor }}; transition: color .3s ease;">Philosophy</a></li>
+      <li><a onClick="{{ goTo.approach }}" style="cursor: pointer; text-decoration: none; font-family: var(--font-sans); font-size: 11px; font-weight: 400; letter-spacing: var(--tracking-link); text-transform: uppercase; color: rgba(255,255,255,0.82); color: {{ linkColor }}; transition: color .3s ease;">Approach</a></li>
+      <li><a onClick="{{ goTo.market }}" style="cursor: pointer; text-decoration: none; font-family: var(--font-sans); font-size: 11px; font-weight: 400; letter-spacing: var(--tracking-link); text-transform: uppercase; color: rgba(255,255,255,0.82); color: {{ linkColor }}; transition: color .3s ease;">The Market</a></li>
+      <li>
+        <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Button" variant="{{ contactVariant }}" size="sm" onClick="{{ goTo.contact }}" hint-size="92px,38px">Contact</x-import>
+      </li>
+    </ul>
+   </div>
+  </div>
+
+  <span ref="{{ setSentinel }}" style="position: absolute; top: 90px; left: 0; width: 1px; height: 1px; pointer-events: none;"></span>
+
+  <section id="hero" style="position: relative; min-height: 660px; height: 90vh; display: flex; background: linear-gradient(155deg,#1E2D40 0%,#162130 45%,#0D1620 100%); background-size: cover; background-position: center; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background: var(--scrim);"></div>
+
+    <sc-if value="{{ isCentered }}" hint-placeholder-val="{{ true }}">
+      <div style="position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); height: 400px; z-index: 0; overflow: hidden; border-top: 0.5px solid var(--gold-28); border-bottom: 0.5px solid var(--gold-28);">
+        <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="hero-band" fit="cover" placeholder="Drop a hero image" style="width: 100%; height: 100%; display: block;" hint-size="100%,400px"></x-import>
+        <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(13,22,32,0.86) 0%, rgba(13,22,32,0.52) 50%, rgba(13,22,32,0.86) 100%);"></div>
+        <div style="position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(13,22,32,0.55) 0%, rgba(13,22,32,0) 22%, rgba(13,22,32,0) 78%, rgba(13,22,32,0.55) 100%);"></div>
+      </div>
+      <div style="position: relative; z-index: 1; pointer-events: none; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); padding: 0 var(--gutter);">
+        <div style="max-width: 720px;">
+          <p style="font-family: var(--font-sans); font-size: 14px; font-weight: 300; letter-spacing: var(--tracking-wide); color: var(--gold); margin: 0 0 28px;">SAN FRANCISCO BAY AREA</p>
+          <span style="display: block; width: 44px; height: 0.5px; background: var(--gold); margin: 0 auto 40px;"></span>
+          <h1 style="font-family: var(--font-serif); font-size: var(--display-xl); font-weight: 300; line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); margin: 0 0 52px; white-space: nowrap;">Legacy starts here.</h1>
+          <span style="display: inline-flex; pointer-events: auto;"><x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Button" variant="outline" onClick="{{ goTo.contact }}" hint-size="180px,50px">Get in Touch</x-import></span>
+        </div>
+      </div>
+      <div style="position: absolute; bottom: 38px; left: 50%; transform: translateX(-50%); z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        <span style="font-family: var(--font-sans); font-size: 9px; font-weight: 300; letter-spacing: 0.28em; text-transform: uppercase; color: rgba(245,240,232,0.55);">Scroll</span>
+        <span style="display: flex; justify-content: center; width: 22px; height: 36px; border: 0.5px solid rgba(245,240,232,0.4); border-radius: 999px; padding-top: 8px;">
+          <span style="width: 3px; height: 3px; border-radius: 999px; background: var(--gold); animation: aion-scrolldot 1.8s var(--ease) infinite;"></span>
+        </span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isEditorial }}" hint-placeholder-val="{{ false }}">
+      <div style="position: relative; z-index: 1; width: 100%; max-width: var(--max-w); margin: 0 auto; display: flex; align-items: flex-end; padding: 0 var(--gutter) 96px; color: var(--white);">
+        <div style="max-width: 780px;">
+          <p style="font-family: var(--font-sans); font-size: 14px; font-weight: 300; letter-spacing: var(--tracking-wide); color: var(--gold); margin: 0 0 26px;">SAN FRANCISCO BAY AREA</p>
+          <h1 style="font-family: var(--font-serif); font-size: var(--display-xl); font-weight: 300; line-height: 1.04; letter-spacing: var(--tracking-tight); margin: 0 0 30px; white-space: nowrap;">Legacy <em style="font-style: italic;">starts here.</em></h1>
+          <p style="font-family: var(--font-sans); font-size: 15px; font-weight: 300; line-height: 1.8; color: rgba(245,240,232,0.78); max-width: 460px; margin: 0 0 40px;">Generational representation for the Bay Area's most considered properties — measured, discreet, and built to last.</p>
+          <div style="display: flex; gap: 18px; flex-wrap: wrap;">
+            <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Button" variant="gold" onClick="{{ goTo.contact }}" hint-size="180px,50px">Get in Touch</x-import>
+            <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Button" variant="outline" onClick="{{ goTo.philosophy }}" hint-size="180px,50px">Our Philosophy</x-import>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isFramed }}" hint-placeholder-val="{{ false }}">
+      <div style="position: relative; z-index: 1; width: 100%; display: flex; align-items: center; justify-content: center; padding: 0 var(--gutter); color: var(--white);">
+        <div style="border: 0.5px solid var(--gold-45); padding: 72px 64px; text-align: center; max-width: 720px; width: 100%;">
+          <p style="font-family: var(--font-sans); font-size: 14px; font-weight: 300; letter-spacing: var(--tracking-wide); color: var(--gold); margin: 0 0 28px;">SAN FRANCISCO BAY AREA</p>
+          <span style="display: block; width: 44px; height: 0.5px; background: var(--gold); margin: 0 auto 40px;"></span>
+          <h1 style="font-family: var(--font-serif); font-size: var(--display-xl); font-weight: 300; line-height: var(--leading-tight); letter-spacing: var(--tracking-tight); margin: 0 0 48px; white-space: nowrap;">Legacy starts here.</h1>
+          <div style="display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;">
+            <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Button" variant="outline" onClick="{{ goTo.contact }}" hint-size="180px,50px">Get in Touch</x-import>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </section>
+
+  <section id="philosophy" data-reveal style="padding: var(--section-v) var(--gutter); background: var(--cream);">
+    <div style="max-width: var(--max-w); margin: 0 auto;">
+      <div style="margin-bottom: 44px;">
+        <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.SectionLabel" hint-size="120px,14px">Philosophy</x-import>
+      </div>
+      <blockquote style="font-family: var(--font-serif); font-size: var(--display-md); font-weight: 300; font-style: italic; line-height: var(--leading-quote); color: var(--charcoal); max-width: 840px; margin: 0;">Aion Estates was built on a belief that the finest properties in the San Francisco Bay Area deserve representation as timeless as the communities themselves. We move with deliberateness, cultivate relationships across generations, and bring an unwavering standard to every transaction.</blockquote>
+    </div>
+  </section>
+
+  <section id="approach" data-reveal style="padding: var(--section-v) var(--gutter); background: var(--surface); border-top: 0.5px solid var(--line-ink); border-bottom: 0.5px solid var(--line-ink);">
+    <div style="max-width: var(--max-w); margin: 0 auto;">
+      <div style="margin-bottom: 56px;">
+        <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.SectionLabel" data-aion-label="1" hint-size="140px,14px">Our Approach</x-import>
+      </div>
+      <div class="aion-pillars" style="gap: 56px;">
+        <div style="flex: 1;"><x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Pillar" num="01" title="Representation" hint-size="100%,200px">Every client receives the full weight of our attention and expertise. We represent your interests with precision, from first showing to final close.</x-import></div>
+        <span class="aion-vrule" style="display: flex; align-items: stretch;"><x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Rule" variant="divider" orientation="vertical" hint-size="1px,180px"></x-import></span>
+        <div style="flex: 1;"><x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Pillar" num="02" title="Market Expertise" hint-size="100%,200px">As Bay Area natives, decades of experience give us an understanding of this market that no algorithm can replicate — neighbourhood by neighbourhood, block by block.</x-import></div>
+        <span class="aion-vrule" style="display: flex; align-items: stretch;"><x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Rule" variant="divider" orientation="vertical" hint-size="1px,180px"></x-import></span>
+        <div style="flex: 1;"><x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Pillar" num="03" title="Discretion" hint-size="100%,200px">Your transaction is your business. We conduct every engagement with the confidentiality and professionalism that high-stakes decisions demand.</x-import></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="market" data-reveal style="padding: var(--section-v) var(--gutter); background: var(--cream);">
+    <div style="max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--grid-gap); align-items: center;">
+      <div>
+        <div style="margin-bottom: 44px;">
+          <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.SectionLabel" hint-size="110px,14px">The Market</x-import>
+        </div>
+        <h2 style="font-family: var(--font-serif); font-size: var(--display-lg); font-weight: 300; line-height: var(--leading-snug); margin: 0 0 28px; color: var(--charcoal);">The Bay Area,<br><em style="font-style: italic;">in full.</em></h2>
+        <p style="font-family: var(--font-sans); font-size: var(--text-lg); font-weight: 300; line-height: var(--leading-body); color: var(--stone); margin: 0 0 36px;">From the water's edge to the hillsides, the San Francisco Bay Area holds some of the country's most coveted real estate. We represent exceptional property across all five regions with a single standard of care — and we know each one intimately: its character, its values, and where rare opportunity lives.</p>
+        <div data-region-row="1" style="display: flex; flex-wrap: wrap; gap: 12px 14px;">
+          <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.AreaTag" variant="outlined" hint-size="90px,32px">North Bay</x-import>
+          <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.AreaTag" variant="outlined" hint-size="120px,32px">San Francisco</x-import>
+          <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.AreaTag" variant="outlined" hint-size="90px,32px">Peninsula</x-import>
+          <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.AreaTag" variant="outlined" hint-size="90px,32px">South Bay</x-import>
+          <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.AreaTag" variant="outlined" hint-size="80px,32px">East Bay</x-import>
+        </div>
+      </div>
+      <div style="width: 100%; aspect-ratio: 4 / 5;"><x-import component-from-global-scope="image-slot" from="./image-slot.js" id="market-photo" fit="cover" placeholder="Drop a photo" style="width: 100%; height: 100%; display: block;" hint-size="100%,100%"></x-import></div>
+    </div>
+  </section>
+
+  <section id="contact" data-reveal style="padding: var(--section-v) var(--gutter); background: var(--charcoal); color: var(--cream);">
+    <div style="max-width: var(--max-w); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--grid-gap); align-items: start;">
+      <div>
+        <div style="margin-bottom: 44px;">
+          <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.SectionLabel" tone="soft" hint-size="90px,14px">Contact</x-import>
+        </div>
+        <h2 style="font-family: var(--font-serif); font-size: var(--display-lg); font-weight: 300; line-height: var(--leading-snug); margin: 0 0 44px;">Let's begin<br><em style="font-style: italic;">a conversation.</em></h2>
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <a href="mailto:info@aionestates.com" style="font-family: var(--font-sans); font-size: 15px; font-weight: 300; color: var(--cream); text-decoration: none;">info@aionestates.com</a>
+          <a href="tel:+14084659784" style="font-family: var(--font-sans); font-size: 15px; font-weight: 300; color: var(--cream); text-decoration: none;">408-465-9784</a>
+          <span style="font-family: var(--font-sans); font-size: 11px; letter-spacing: 0.1em; color: var(--stone); margin-top: 10px;">CA DRE #01999592</span>
+        </div>
+      </div>
+
+      <div>
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" style="display: flex; flex-direction: column; gap: 24px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+              <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Field" label="Name" id="name" placeholder="Your name" required="{{ true }}" value="{{ form.name }}" onChange="{{ onName }}" hint-size="100%,82px"></x-import>
+              <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Field" label="Email" id="email" type="email" placeholder="your@email.com" required="{{ true }}" value="{{ form.email }}" onChange="{{ onEmail }}" hint-size="100%,82px"></x-import>
+            </div>
+            <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Field" label="Message" id="message" textarea="{{ true }}" rows="5" placeholder="Tell us about your needs…" required="{{ true }}" value="{{ form.message }}" onChange="{{ onMessage }}" hint-size="100%,160px"></x-import>
+            <x-import component-from-global-scope="AionEstatesDesignSystem_48e3d1.Button" variant="gold" as="button" type="submit" style="align-self: flex-start;" hint-size="190px,50px">Send Message</x-import>
+          </form>
+        </sc-if>
+        <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; justify-content: center; border: 0.5px solid var(--gold-28); padding: 48px; min-height: 280px;">
+            <p style="font-family: var(--font-sans); font-size: 10px; font-weight: 400; letter-spacing: var(--tracking-label); text-transform: uppercase; color: var(--gold); margin: 0 0 18px;">Message received</p>
+            <p style="font-family: var(--font-serif); font-size: 30px; font-weight: 300; font-style: italic; line-height: 1.4; margin: 0;">Thank you, {{ sentName }}.<br>We'll be in touch shortly.</p>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: var(--charcoal); border-top: 0.5px solid var(--gold-14); padding: 28px var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+    <span style="font-family: var(--font-sans); font-size: 10.5px; font-weight: 300; color: var(--stone); letter-spacing: 0.06em;">© 2026 Aion Estates. All rights reserved.</span>
+    <span style="font-family: var(--font-sans); font-size: 10.5px; font-weight: 300; color: var(--stone); letter-spacing: 0.06em;">CA DRE #01999592</span>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;heroVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;centered&quot;,&quot;editorial&quot;,&quot;framed&quot;],&quot;default&quot;:&quot;framed&quot;,&quot;tsType&quot;:&quot;'centered' | 'editorial' | 'framed'&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#B8975A&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;revealAnimations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { scrolled: false, form: { name: '', email: '', message: '' }, sent: false };
+
+  setRoot = (el) => { this.rootEl = el; };
+
+  setNav = (el) => { this.navEl = el; this.updateNav(); };
+  setNavInner = (el) => { this.navInnerEl = el; this.updateNav(); };
+
+  updateNav() {
+    const el = this.navEl;
+    if (el) {
+      const s = this.state.scrolled;
+      el.style.background = s ? 'var(--surface)' : 'transparent';
+      el.style.boxShadow = s ? 'var(--shadow-nav)' : 'none';
+    }
+    if (this.navInnerEl) {
+      this.navInnerEl.style.padding = this.state.scrolled ? '16px var(--gutter)' : '28px var(--gutter)';
+    }
+  }
+
+  setSentinel = (el) => {
+    this.sentinelEl = el;
+    if (!el) return;
+    if (this.navIo) this.navIo.disconnect();
+    this.navIo = new IntersectionObserver((entries) => {
+      const s = !entries[0].isIntersecting;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    }, { threshold: 0, rootMargin: '0px' });
+    this.navIo.observe(el);
+  };
+
+  componentDidMount() {
+    this.applyAccent();
+    this.setupReveal();
+    this.updateNav();
+  }
+
+  componentDidUpdate() { this.applyAccent(); this.updateNav(); }
+
+  componentWillUnmount() {
+    if (this.navIo) this.navIo.disconnect();
+    if (this.io) this.io.disconnect();
+  }
+
+  applyAccent() {
+    const a = this.props.accent;
+    if (this.rootEl && a) this.rootEl.style.setProperty('--gold', a);
+  }
+
+  setupReveal() {
+    const root = this.rootEl;
+    if (!root) return;
+    if (this.props.revealAnimations === false) return;
+    const els = root.querySelectorAll('[data-reveal]');
+    els.forEach((el) => el.classList.add('reveal'));
+    this.io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); this.io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach((el) => this.io.observe(el));
+  }
+
+  scrollTo = (id) => {
+    const root = this.rootEl;
+    const el = root && root.querySelector('#' + id);
+    if (!el) return;
+    const top = id === 'hero' ? 0 : el.getBoundingClientRect().top + window.scrollY - 64;
+    window.scrollTo({ top, behavior: 'smooth' });
+  };
+
+  setField = (k) => (e) => {
+    const v = e.target.value;
+    this.setState((s) => ({ form: { ...s.form, [k]: v } }));
+  };
+
+  submit = (e) => { e.preventDefault(); this.setState({ sent: true }); };
+
+  renderVals() {
+    const scrolled = this.state.scrolled;
+    const variant = this.props.heroVariant || 'centered';
+    return {
+      setRoot: this.setRoot,
+      setNav: this.setNav,
+      setSentinel: this.setSentinel,
+      wordmarkTone: scrolled ? 'dark' : 'light',
+      contactVariant: scrolled ? 'outline-dark' : 'outline',
+      linkColor: scrolled ? '#6B6459' : 'rgba(255,255,255,0.82)',
+      goTo: {
+        hero: () => this.scrollTo('hero'),
+        philosophy: () => this.scrollTo('philosophy'),
+        approach: () => this.scrollTo('approach'),
+        market: () => this.scrollTo('market'),
+        contact: () => this.scrollTo('contact'),
+      },
+      isCentered: variant === 'centered',
+      isEditorial: variant === 'editorial',
+      isFramed: variant === 'framed',
+      form: this.state.form,
+      sent: this.state.sent,
+      notSent: !this.state.sent,
+      onName: this.setField('name'),
+      onEmail: this.setField('email'),
+      onMessage: this.setField('message'),
+      submit: this.submit,
+      sentName: this.state.form.name || 'friend',
+    };
+  }
+}
+</script>
+</body>
+</html>

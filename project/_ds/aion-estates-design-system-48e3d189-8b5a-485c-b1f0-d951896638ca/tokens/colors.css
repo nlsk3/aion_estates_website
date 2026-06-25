@@ -1,0 +1,64 @@
+/* ============================================================
+   AION ESTATES — Color tokens
+   A warm, restrained palette: cream paper, charcoal ink,
+   and a single gold accent. Atmospheric night-blues carry
+   the hero photography.
+   ============================================================ */
+
+:root {
+  /* ── Base palette ─────────────────────────────────────── */
+  --cream:      #F5F0E8;   /* primary page ground            */
+  --surface:    #FAFAF7;   /* lifted panels, alt sections    */
+  --charcoal:   #1C1C1A;   /* ink / contact + footer ground  */
+  --stone:      #6B6459;   /* secondary text                 */
+  --gold:       #B8975A;   /* the single accent              */
+  --white:      #FFFFFF;   /* cards, reversed type           */
+
+  /* ── Atmospheric night (hero imagery) ─────────────────── */
+  --night-1:    #1E2D40;
+  --night-2:    #162130;
+  --night-3:    #0D1620;
+
+  /* ── Gold tints & washes ──────────────────────────────── */
+  --gold-90:    rgba(184, 151, 90, 0.90);
+  --gold-70:    rgba(184, 151, 90, 0.70);
+  --gold-45:    rgba(184, 151, 90, 0.45);
+  --gold-28:    rgba(184, 151, 90, 0.28);
+  --gold-14:    rgba(184, 151, 90, 0.14);
+
+  /* ── Stone / charcoal washes (warm placeholder fills) ─── */
+  --clay-1:     #C9BFAC;
+  --clay-2:     #B5A88F;
+  --clay-3:     #A0916F;
+
+  /* ── Hairlines ────────────────────────────────────────── */
+  --line-ink:        rgba(28, 28, 26, 0.10);
+  --line-ink-strong: rgba(28, 28, 26, 0.35);
+  --line-light:      rgba(255, 255, 255, 0.50);
+  --line-light-soft: rgba(255, 255, 255, 0.18);
+
+  /* ── Overlays ─────────────────────────────────────────── */
+  --scrim:      rgba(8, 12, 18, 0.40);
+
+  /* ── Semantic aliases ─────────────────────────────────── */
+  --bg-page:        var(--cream);
+  --bg-surface:     var(--surface);
+  --bg-ink:         var(--charcoal);
+  --surface-card:   var(--white);
+
+  --text-primary:   var(--charcoal);
+  --text-secondary: var(--stone);
+  --text-on-ink:    var(--cream);
+  --text-muted:     rgba(245, 240, 232, 0.55);
+
+  --accent:         var(--gold);
+  --accent-soft:    var(--gold-45);
+
+  --border-subtle:  var(--line-ink);
+  --border-strong:  var(--line-ink-strong);
+  --border-accent:  var(--gold-28);
+
+  --field-bg:       rgba(255, 255, 255, 0.04);
+  --field-border:   var(--gold-28);
+  --field-border-focus: var(--gold-70);
+}

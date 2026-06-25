@@ -1,0 +1,45 @@
+/* ============================================================
+   AION ESTATES — Typography tokens
+   Cormorant Garamond carries display & editorial voice (light
+   weights, italic for emphasis). DM Sans carries labels, UI,
+   and body at small sizes with generous tracking.
+   ============================================================ */
+
+:root {
+  /* ── Families ─────────────────────────────────────────── */
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans:  'DM Sans', system-ui, -apple-system, sans-serif;
+
+  /* ── Weights ──────────────────────────────────────────── */
+  --weight-light:   300;   /* default for display + body     */
+  --weight-regular: 400;
+  --weight-medium:  500;
+
+  /* ── Display scale (serif) ────────────────────────────── */
+  --display-xl:  clamp(44px, 6.5vw, 82px); /* @kind font */
+  --display-lg:  clamp(34px, 4vw, 54px); /* @kind font */
+  --display-md:  30px;                       /* pull-quote      */
+  --display-sm:  26px;                       /* card / pillar   */
+
+  /* ── Text scale (sans) ────────────────────────────────── */
+  --text-lg:   15px;   /* lead paragraph                       */
+  --text-md:   14px;   /* body                                  */
+  --text-sm:   13px;
+  --text-xs:   11px;   /* nav links, meta                       */
+  --label:     10px;   /* tracked micro-labels                  */
+  --label-xs:  8.5px;  /* wordmark sub                          */
+
+  /* ── Line heights ─────────────────────────────────────── */
+  --leading-tight:   1.1;    /* display                        */
+  --leading-snug:    1.2;
+  --leading-quote:   1.75;   /* italic pull-quote              */
+  --leading-body:    1.8;    /* sans body                      */
+
+  /* ── Letter spacing ───────────────────────────────────── */
+  --tracking-tight:    0.01em;
+  --tracking-link:     0.15em;
+  --tracking-button:   0.22em;
+  --tracking-label:    0.24em;
+  --tracking-wide:     0.32em;
+  --tracking-wordmark: 0.38em;
+}

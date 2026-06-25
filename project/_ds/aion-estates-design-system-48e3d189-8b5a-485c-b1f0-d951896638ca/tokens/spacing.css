@@ -1,0 +1,38 @@
+/* ============================================================
+   AION ESTATES — Spacing & layout tokens
+   A calm, airy rhythm. Sections breathe; gutters are wide.
+   ============================================================ */
+
+:root {
+  /* ── Spacing scale ────────────────────────────────────── */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   24px;
+  --space-6:   32px;
+  --space-7:   44px;
+  --space-8:   52px;
+  --space-9:   80px;
+  --space-10:  120px;
+
+  /* ── Layout ───────────────────────────────────────────── */
+  --max-w:     1200px;
+  --gutter:    48px;        /* page edge padding              */
+  --section-v: 120px;       /* vertical section rhythm        */
+  --grid-gap:  80px;        /* two-column splits              */
+
+  /* ── Component sizing ─────────────────────────────────── */
+  --btn-pad-y:   15px;
+  --btn-pad-x:   38px;
+  --field-pad-y: 14px;
+  --field-pad-x: 16px;
+}
+
+@media (max-width: 960px) {
+  :root { --section-v: 88px; --grid-gap: 52px; }
+}
+
+@media (max-width: 768px) {
+  :root { --section-v: 72px; --gutter: 24px; }
+}

@@ -1,0 +1,40 @@
+/* ============================================================
+   AION ESTATES — Effects: borders, rules, motion
+   The brand has no rounded corners and almost no shadow. Depth
+   comes from hairlines, gold rules, and gentle fade-up motion.
+   ============================================================ */
+
+:root {
+  /* ── Radii ────────────────────────────────────────────── */
+  --radius-none: 0;        /* default — corners stay sharp     */
+  --radius-pill: 999px;    /* only the scroll indicator        */
+
+  /* ── Hairline borders ─────────────────────────────────── */
+  --hair: 0.5px;           /* the brand's signature line weight */
+  --border-hairline:      0.5px solid var(--line-ink);
+  --border-hairline-gold: 0.5px solid var(--gold-28);
+
+  /* ── Shadow (used sparingly — lifted cards only) ──────── */
+  --shadow-nav:  0 1px 0 rgba(28, 28, 26, 0.09);
+  --shadow-card: 0 18px 50px -28px rgba(28, 28, 26, 0.30);
+
+  /* ── Gold rule gradients (dividers fade at the ends) ──── */
+  --rule-vertical: linear-gradient(
+      to bottom, transparent 0%, var(--gold-45) 20%,
+      var(--gold-45) 80%, transparent 100%);
+  --rule-horizontal: linear-gradient(
+      to right, transparent 0%, var(--gold-45) 20%,
+      var(--gold-45) 80%, transparent 100%);
+
+  /* ── Motion ───────────────────────────────────────────── */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1); /* @kind other */
+  --dur-fast:   0.30s; /* @kind other */
+  --dur-med:    0.45s; /* @kind other */
+  --dur-slow:   0.85s; /* @kind other */
+
+  --transition-link:   color var(--dur-fast) ease;
+  --transition-button: background var(--dur-fast) ease,
+                       border-color var(--dur-fast) ease,
+                       color var(--dur-fast) ease;
+  --reveal-distance:   22px;
+}
