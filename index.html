@@ -216,7 +216,6 @@
       overflow: hidden;
       border-top: 0.5px solid var(--gold-28);
       border-bottom: 0.5px solid var(--gold-28);
-      cursor: pointer;
     }
     #hero-band-img {
       position: absolute;
@@ -225,33 +224,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-    #hero-band-placeholder {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(140deg, #C9BFAC 0%, #B5A88F 50%, #A0916F 100%);
-      opacity: 0;
-      transition: opacity .3s ease;
-    }
-    #hero-band:hover #hero-band-placeholder { opacity: 0.15; }
-    #hero-band-hint {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity .3s ease;
-    }
-    #hero-band:hover #hero-band-hint { opacity: 1; }
-    #hero-band-hint span {
-      font-family: var(--font-sans);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: rgba(245,240,232,0.55);
     }
     #hero-band-left-scrim {
       position: absolute;
@@ -512,8 +484,6 @@
     #market-photo {
       width: 100%;
       aspect-ratio: 4 / 5;
-      background: linear-gradient(140deg, #C9BFAC 0%, #B5A88F 50%, #A0916F 100%);
-      cursor: pointer;
       position: relative;
       overflow: hidden;
     }
@@ -524,25 +494,6 @@
       height: 100%;
       object-fit: cover;
       display: block;
-    }
-    #market-photo-hint {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity .3s ease;
-      pointer-events: none;
-    }
-    #market-photo:hover #market-photo-hint { opacity: 1; }
-    #market-photo-hint span {
-      font-family: var(--font-sans);
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(28,28,26,0.45);
     }
 
     /* ── Contact ─────────────────────────────────────────────── */
@@ -699,13 +650,10 @@
   <div id="hero-scrim"></div>
 
   <!-- Horizontal image band -->
-  <div id="hero-band" title="Click or drop an image here">
-    <input type="file" id="hero-band-input" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2;">
+  <div id="hero-band">
     <img id="hero-band-img" alt="Hero" src="project/uploads/hero-bg.webp">
-    <div id="hero-band-placeholder"></div>
     <div id="hero-band-left-scrim"></div>
     <div id="hero-band-tb-scrim"></div>
-    <div id="hero-band-hint"><span>Drop a hero image</span></div>
   </div>
 
   <!-- Headline content -->
@@ -777,9 +725,7 @@
       </div>
     </div>
     <div id="market-photo" title="Click or drop a photo here">
-      <input type="file" id="market-photo-input" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2;">
       <img id="market-photo-img" alt="Market" src="project/uploads/market-photo.webp">
-      <div id="market-photo-hint"><span>Drop a photo</span></div>
     </div>
   </div>
 </section>
@@ -887,33 +833,6 @@
     success.style.display = 'flex';
   });
 
-  // ── Image upload helper ───────────────────────────────────────
-  function setupImageSlot(wrapperId, inputId, imgId) {
-    const wrap = document.getElementById(wrapperId);
-    const input = document.getElementById(inputId);
-    const img = document.getElementById(imgId);
-    const hint = wrap.querySelector('[id$="-hint"]');
-
-    function applyFile(file) {
-      if (!file || !file.type.startsWith('image/')) return;
-      const url = URL.createObjectURL(file);
-      img.src = url;
-      img.style.display = 'block';
-      if (hint) hint.style.display = 'none';
-    }
-
-    input.addEventListener('change', () => applyFile(input.files[0]));
-    wrap.addEventListener('dragover', e => { e.preventDefault(); wrap.style.outline = '1px solid var(--gold-45)'; });
-    wrap.addEventListener('dragleave', () => { wrap.style.outline = ''; });
-    wrap.addEventListener('drop', e => {
-      e.preventDefault();
-      wrap.style.outline = '';
-      applyFile(e.dataTransfer.files[0]);
-    });
-  }
-
-  setupImageSlot('hero-band', 'hero-band-input', 'hero-band-img');
-  setupImageSlot('market-photo', 'market-photo-input', 'market-photo-img');
 </script>
 </body>
 </html>
