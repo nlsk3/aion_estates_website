@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aion Estates — San Francisco Bay Area Real Estate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Tokens ──────────────────────────────────────────────── */
+    :root {
+      --cream:      #F5F0E8;
+      --surface:    #FAFAF7;
+      --charcoal:   #1C1C1A;
+      --stone:      #6B6459;
+      --gold:       #B8975A;
+      --white:      #FFFFFF;
+      --night-1:    #1E2D40;
+      --night-2:    #162130;
+      --night-3:    #0D1620;
+      --gold-90:    rgba(184,151,90,0.90);
+      --gold-70:    rgba(184,151,90,0.70);
+      --gold-45:    rgba(184,151,90,0.45);
+      --gold-28:    rgba(184,151,90,0.28);
+      --gold-14:    rgba(184,151,90,0.14);
+      --line-ink:        rgba(28,28,26,0.10);
+      --line-ink-strong: rgba(28,28,26,0.35);
+      --line-light:      rgba(255,255,255,0.50);
+      --scrim:      rgba(8,12,18,0.40);
+      --field-bg:   rgba(255,255,255,0.04);
+      --shadow-nav: 0 1px 0 rgba(28,28,26,0.09);
+      --rule-vertical: linear-gradient(to bottom, transparent 0%, var(--gold-45) 20%, var(--gold-45) 80%, transparent 100%);
+
+      --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --font-sans:  'DM Sans', system-ui, -apple-system, sans-serif;
+
+      --display-xl:  clamp(44px, 6.5vw, 82px);
+      --display-lg:  clamp(34px, 4vw, 54px);
+      --display-md:  30px;
+      --display-sm:  26px;
+      --text-lg:     15px;
+      --text-md:     14px;
+      --text-xs:     11px;
+      --label:       10px;
+
+      --leading-tight: 1.1;
+      --leading-snug:  1.2;
+      --leading-quote: 1.75;
+      --leading-body:  1.8;
+
+      --tracking-tight:    0.01em;
+      --tracking-link:     0.15em;
+      --tracking-button:   0.22em;
+      --tracking-label:    0.24em;
+      --tracking-wide:     0.32em;
+      --tracking-wordmark: 0.38em;
+
+      --max-w:     1200px;
+      --gutter:    48px;
+      --section-v: 120px;
+      --grid-gap:  80px;
+      --btn-pad-y:   15px;
+      --btn-pad-x:   38px;
+      --field-pad-y: 14px;
+      --field-pad-x: 16px;
+
+      --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    @media (max-width: 960px) {
+      :root { --section-v: 88px; --grid-gap: 52px; }
+    }
+    @media (max-width: 768px) {
+      :root { --section-v: 72px; --gutter: 24px; }
+    }
+
+    /* ── Reset ───────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--cream);
+      color: var(--charcoal);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    /* ── Scroll reveal ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .85s var(--ease), transform .85s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ── Scroll dot animation ────────────────────────────────── */
+    @keyframes scrolldot {
+      0%   { transform: translateY(0); opacity: .85; }
+      50%  { transform: translateY(9px); opacity: .25; }
+      100% { transform: translateY(0); opacity: .85; }
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────── */
+    #site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transition: background .45s ease, box-shadow .45s ease;
+      background: transparent;
+      box-shadow: none;
+    }
+    #site-nav .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      height: 84px;
+      padding: 0 var(--gutter);
+    }
+    .wordmark {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .wordmark-aion {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: var(--tracking-wide);
+      line-height: 1;
+      color: var(--white);
+      transition: color .3s ease;
+    }
+    .wordmark-rule {
+      display: block;
+      width: 100%;
+      height: 0.5px;
+      background: var(--gold);
+    }
+    .wordmark-estates {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: var(--tracking-wordmark);
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    #nav-links {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    .nav-link {
+      cursor: pointer;
+      text-decoration: none;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: var(--tracking-link);
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.82);
+      transition: color .3s ease;
+    }
+    .nav-btn {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      letter-spacing: var(--tracking-button);
+      text-transform: uppercase;
+      text-decoration: none;
+      text-align: center;
+      border: 0.5px solid var(--line-light);
+      border-radius: 0;
+      cursor: pointer;
+      padding: 11px 28px;
+      font-size: 9.5px;
+      background: transparent;
+      color: var(--white);
+      transition: background .3s ease, border-color .3s ease, color .3s ease;
+    }
+    .nav-btn:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+
+    /* ── Hero ────────────────────────────────────────────────── */
+    #hero {
+      position: relative;
+      min-height: 660px;
+      height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(155deg, #1E2D40 0%, #162130 45%, #0D1620 100%);
+      overflow: hidden;
+    }
+    #hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: var(--scrim);
+      pointer-events: none;
+    }
+    #hero-band {
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 400px;
+      z-index: 0;
+      overflow: hidden;
+      border-top: 0.5px solid var(--gold-28);
+      border-bottom: 0.5px solid var(--gold-28);
+      cursor: pointer;
+    }
+    #hero-band-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    #hero-band-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(140deg, #C9BFAC 0%, #B5A88F 50%, #A0916F 100%);
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    #hero-band:hover #hero-band-placeholder { opacity: 0.15; }
+    #hero-band-hint {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    #hero-band:hover #hero-band-hint { opacity: 1; }
+    #hero-band-hint span {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.55);
+    }
+    #hero-band-left-scrim {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(13,22,32,0.86) 0%, rgba(13,22,32,0.52) 50%, rgba(13,22,32,0.86) 100%);
+    }
+    #hero-band-tb-scrim {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, rgba(13,22,32,0.55) 0%, rgba(13,22,32,0) 22%, rgba(13,22,32,0) 78%, rgba(13,22,32,0.55) 100%);
+    }
+    #hero-content {
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--white);
+      padding: 0 var(--gutter);
+    }
+    #hero-content .inner {
+      max-width: 720px;
+    }
+    #hero-eyebrow {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: var(--tracking-wide);
+      color: var(--gold);
+      margin: 0 0 28px;
+    }
+    #hero-rule {
+      display: block;
+      width: 44px;
+      height: 0.5px;
+      background: var(--gold);
+      margin: 0 auto 40px;
+    }
+    #hero-h1 {
+      font-family: var(--font-serif);
+      font-size: var(--display-xl);
+      font-weight: 300;
+      line-height: var(--leading-tight);
+      letter-spacing: var(--tracking-tight);
+      margin: 0 0 52px;
+      white-space: nowrap;
+    }
+    .btn-outline {
+      display: inline-block;
+      box-sizing: border-box;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      letter-spacing: var(--tracking-button);
+      text-transform: uppercase;
+      text-decoration: none;
+      text-align: center;
+      border: 0.5px solid var(--line-light);
+      border-radius: 0;
+      cursor: pointer;
+      padding: var(--btn-pad-y) var(--btn-pad-x);
+      font-size: var(--label);
+      background: transparent;
+      color: var(--white);
+      transition: background .3s ease, border-color .3s ease, color .3s ease;
+      pointer-events: auto;
+    }
+    .btn-outline:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--white);
+    }
+    .btn-gold {
+      display: inline-block;
+      box-sizing: border-box;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      letter-spacing: var(--tracking-button);
+      text-transform: uppercase;
+      text-decoration: none;
+      text-align: center;
+      border: 0.5px solid var(--gold);
+      border-radius: 0;
+      cursor: pointer;
+      padding: var(--btn-pad-y) var(--btn-pad-x);
+      font-size: var(--label);
+      background: var(--gold);
+      color: var(--charcoal);
+      transition: opacity .3s ease;
+    }
+    .btn-gold:hover { opacity: 0.82; }
+    #hero-scroll {
+      position: absolute;
+      bottom: 38px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      pointer-events: none;
+    }
+    #hero-scroll-label {
+      font-family: var(--font-sans);
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.55);
+    }
+    #hero-scroll-pill {
+      display: flex;
+      justify-content: center;
+      width: 22px;
+      height: 36px;
+      border: 0.5px solid rgba(245,240,232,0.4);
+      border-radius: 999px;
+      padding-top: 8px;
+    }
+    #hero-scroll-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--gold);
+      animation: scrolldot 1.8s var(--ease) infinite;
+    }
+
+    /* ── Section label ───────────────────────────────────────── */
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: var(--label);
+      font-weight: 400;
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 44px;
+    }
+    .section-label-soft { color: var(--gold-90); }
+
+    /* ── Philosophy ──────────────────────────────────────────── */
+    #philosophy {
+      padding: var(--section-v) var(--gutter);
+      background: var(--cream);
+    }
+    #philosophy blockquote {
+      font-family: var(--font-serif);
+      font-size: var(--display-md);
+      font-weight: 300;
+      font-style: italic;
+      line-height: var(--leading-quote);
+      color: var(--charcoal);
+      max-width: 840px;
+      margin: 0;
+    }
+
+    /* ── Approach ────────────────────────────────────────────── */
+    #approach {
+      padding: var(--section-v) var(--gutter);
+      background: var(--surface);
+      border-top: 0.5px solid var(--line-ink);
+      border-bottom: 0.5px solid var(--line-ink);
+    }
+    #approach .section-label {
+      font-size: 14px;
+      letter-spacing: 0.22em;
+    }
+    .pillars {
+      display: flex;
+      align-items: stretch;
+      gap: 56px;
+    }
+    .pillar { flex: 1; }
+    .pillar-num {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      margin-bottom: 20px;
+    }
+    .pillar h3 {
+      font-family: var(--font-serif);
+      font-size: var(--display-sm);
+      font-weight: 400;
+      letter-spacing: var(--tracking-tight);
+      color: var(--charcoal);
+      margin: 0 0 16px;
+    }
+    .pillar p {
+      font-family: var(--font-sans);
+      font-size: var(--text-md);
+      font-weight: 300;
+      line-height: var(--leading-body);
+      color: var(--stone);
+      margin: 0;
+    }
+    .vrule {
+      display: flex;
+      align-items: stretch;
+      flex-shrink: 0;
+    }
+    .vrule span {
+      display: block;
+      width: 0.5px;
+      min-height: 180px;
+      background: var(--rule-vertical);
+    }
+
+    /* ── Market ──────────────────────────────────────────────── */
+    #market {
+      padding: var(--section-v) var(--gutter);
+      background: var(--cream);
+    }
+    #market .grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--grid-gap);
+      align-items: center;
+    }
+    #market h2 {
+      font-family: var(--font-serif);
+      font-size: var(--display-lg);
+      font-weight: 300;
+      line-height: var(--leading-snug);
+      margin: 0 0 28px;
+      color: var(--charcoal);
+    }
+    #market h2 em { font-style: italic; }
+    #market .lead {
+      font-family: var(--font-sans);
+      font-size: var(--text-lg);
+      font-weight: 300;
+      line-height: var(--leading-body);
+      color: var(--stone);
+      margin: 0 0 36px;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 12px 14px; }
+    .area-tag {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      color: var(--gold);
+      white-space: nowrap;
+      display: inline-block;
+      padding: 7px 16px;
+      border: 0.5px solid var(--gold-28);
+      text-transform: uppercase;
+    }
+    #market-photo {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(140deg, #C9BFAC 0%, #B5A88F 50%, #A0916F 100%);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    #market-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+    #market-photo-hint {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity .3s ease;
+      pointer-events: none;
+    }
+    #market-photo:hover #market-photo-hint { opacity: 1; }
+    #market-photo-hint span {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(28,28,26,0.45);
+    }
+
+    /* ── Contact ─────────────────────────────────────────────── */
+    #contact {
+      padding: var(--section-v) var(--gutter);
+      background: var(--charcoal);
+      color: var(--cream);
+    }
+    #contact .grid {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--grid-gap);
+      align-items: start;
+    }
+    #contact h2 {
+      font-family: var(--font-serif);
+      font-size: var(--display-lg);
+      font-weight: 300;
+      line-height: var(--leading-snug);
+      margin: 0 0 44px;
+    }
+    #contact h2 em { font-style: italic; }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; }
+    .contact-links a {
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--cream);
+      text-decoration: none;
+    }
+    .contact-dre {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--stone);
+      margin-top: 10px;
+      display: block;
+    }
+    .field-group { display: flex; flex-direction: column; gap: 9px; }
+    .field-label {
+      font-family: var(--font-sans);
+      font-size: 9.5px;
+      font-weight: 400;
+      letter-spacing: var(--tracking-button);
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+    .field-control {
+      box-sizing: border-box;
+      width: 100%;
+      background: var(--field-bg);
+      border: 0.5px solid var(--gold-28);
+      border-radius: 0;
+      color: var(--cream);
+      font-family: var(--font-sans);
+      font-size: var(--text-md);
+      font-weight: 300;
+      padding: var(--field-pad-y) var(--field-pad-x);
+      outline: none;
+      resize: none;
+      -webkit-appearance: none;
+      transition: border-color .3s ease;
+    }
+    .field-control:focus { border-color: var(--gold-70); }
+    .field-control::placeholder { color: var(--stone); opacity: 0.6; }
+    #contact-form { display: flex; flex-direction: column; gap: 24px; }
+    #contact-form .fields-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    #contact-success {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      border: 0.5px solid var(--gold-28);
+      padding: 48px;
+      min-height: 280px;
+    }
+    #contact-success .label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 18px;
+    }
+    #contact-success .message {
+      font-family: var(--font-serif);
+      font-size: 30px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    footer {
+      background: var(--charcoal);
+      border-top: 0.5px solid var(--gold-14);
+      padding: 28px var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    footer span {
+      font-family: var(--font-sans);
+      font-size: 10.5px;
+      font-weight: 300;
+      color: var(--stone);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────── */
+    @media (max-width: 820px) {
+      .pillars { flex-direction: column; gap: 44px; }
+      .vrule { display: none; }
+    }
+    @media (max-width: 760px) {
+      #nav-links { display: none; }
+      #hero-h1 { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav scroll sentinel -->
+<span id="nav-sentinel" style="position: absolute; top: 90px; left: 0; width: 1px; height: 1px; pointer-events: none;"></span>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<header id="site-nav">
+  <div class="inner">
+    <a class="wordmark" href="#hero" data-scroll="hero" aria-label="Aion Estates">
+      <span class="wordmark-aion">AION</span>
+      <span class="wordmark-rule"></span>
+      <span class="wordmark-estates">ESTATES</span>
+    </a>
+    <ul id="nav-links">
+      <li><a class="nav-link" href="#philosophy" data-scroll="philosophy">Philosophy</a></li>
+      <li><a class="nav-link" href="#approach" data-scroll="approach">Approach</a></li>
+      <li><a class="nav-link" href="#market" data-scroll="market">The Market</a></li>
+      <li><a class="nav-btn" href="#contact" data-scroll="contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ── Hero ────────────────────────────────────────────────── -->
+<section id="hero">
+  <div id="hero-scrim"></div>
+
+  <!-- Horizontal image band -->
+  <div id="hero-band" title="Click or drop an image here">
+    <input type="file" id="hero-band-input" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2;">
+    <img id="hero-band-img" alt="Hero">
+    <div id="hero-band-placeholder"></div>
+    <div id="hero-band-left-scrim"></div>
+    <div id="hero-band-tb-scrim"></div>
+    <div id="hero-band-hint"><span>Drop a hero image</span></div>
+  </div>
+
+  <!-- Headline content -->
+  <div id="hero-content">
+    <div class="inner">
+      <p id="hero-eyebrow">SAN FRANCISCO BAY AREA</p>
+      <span id="hero-rule"></span>
+      <h1 id="hero-h1">Legacy starts here.</h1>
+      <a class="btn-outline" href="#contact" data-scroll="contact">Get in Touch</a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div id="hero-scroll">
+    <span id="hero-scroll-label">Scroll</span>
+    <span id="hero-scroll-pill">
+      <span id="hero-scroll-dot"></span>
+    </span>
+  </div>
+</section>
+
+<!-- ── Philosophy ──────────────────────────────────────────── -->
+<section id="philosophy" class="reveal">
+  <div style="max-width: var(--max-w); margin: 0 auto;">
+    <p class="section-label">Philosophy</p>
+    <blockquote>Aion Estates was built on a belief that the finest properties in the San Francisco Bay Area deserve representation as timeless as the communities themselves. We move with deliberateness, cultivate relationships across generations, and bring an unwavering standard to every transaction.</blockquote>
+  </div>
+</section>
+
+<!-- ── Approach ─────────────────────────────────────────────── -->
+<section id="approach" class="reveal">
+  <div style="max-width: var(--max-w); margin: 0 auto;">
+    <p class="section-label">Our Approach</p>
+    <div class="pillars">
+      <div class="pillar">
+        <span class="pillar-num">01</span>
+        <h3>Representation</h3>
+        <p>Every client receives the full weight of our attention and expertise. We represent your interests with precision, from first showing to final close.</p>
+      </div>
+      <div class="vrule"><span></span></div>
+      <div class="pillar">
+        <span class="pillar-num">02</span>
+        <h3>Market Expertise</h3>
+        <p>As Bay Area natives, decades of experience give us an understanding of this market that no algorithm can replicate — neighbourhood by neighbourhood, block by block.</p>
+      </div>
+      <div class="vrule"><span></span></div>
+      <div class="pillar">
+        <span class="pillar-num">03</span>
+        <h3>Discretion</h3>
+        <p>Your transaction is your business. We conduct every engagement with the confidentiality and professionalism that high-stakes decisions demand.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Market ───────────────────────────────────────────────── -->
+<section id="market" class="reveal">
+  <div class="grid">
+    <div>
+      <p class="section-label">The Market</p>
+      <h2>The Bay Area,<br><em>in full.</em></h2>
+      <p class="lead">From the water's edge to the hillsides, the San Francisco Bay Area holds some of the country's most coveted real estate. We represent exceptional property across all five regions with a single standard of care — and we know each one intimately: its character, its values, and where rare opportunity lives.</p>
+      <div class="tags">
+        <span class="area-tag">North Bay</span>
+        <span class="area-tag">San Francisco</span>
+        <span class="area-tag">Peninsula</span>
+        <span class="area-tag">South Bay</span>
+        <span class="area-tag">East Bay</span>
+      </div>
+    </div>
+    <div id="market-photo" title="Click or drop a photo here">
+      <input type="file" id="market-photo-input" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2;">
+      <img id="market-photo-img" alt="Market">
+      <div id="market-photo-hint"><span>Drop a photo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Contact ──────────────────────────────────────────────── -->
+<section id="contact" class="reveal">
+  <div class="grid">
+    <div>
+      <p class="section-label section-label-soft">Contact</p>
+      <h2>Let's begin<br><em>a conversation.</em></h2>
+      <div class="contact-links">
+        <a href="mailto:info@aionestates.com">info@aionestates.com</a>
+        <a href="tel:+14084659784">408-465-9784</a>
+        <span class="contact-dre">CA DRE #01999592</span>
+      </div>
+    </div>
+    <div>
+      <form id="contact-form">
+        <div class="fields-row">
+          <div class="field-group">
+            <label class="field-label" for="f-name">Name</label>
+            <input class="field-control" id="f-name" name="name" type="text" placeholder="Your name" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="f-email">Email</label>
+            <input class="field-control" id="f-email" name="email" type="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-message">Message</label>
+          <textarea class="field-control" id="f-message" name="message" rows="5" placeholder="Tell us about your needs…" required></textarea>
+        </div>
+        <button class="btn-gold" type="submit" style="align-self: flex-start;">Send Message</button>
+      </form>
+      <div id="contact-success">
+        <p class="label">Message received</p>
+        <p class="message" id="contact-success-msg"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ───────────────────────────────────────────────── -->
+<footer>
+  <span>© 2026 Aion Estates. All rights reserved.</span>
+  <span>CA DRE #01999592</span>
+</footer>
+
+<script>
+  // ── Smooth scroll ─────────────────────────────────────────────
+  function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const top = id === 'hero' ? 0 : el.getBoundingClientRect().top + window.scrollY - 64;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('[data-scroll]').forEach(el => {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      scrollTo(this.dataset.scroll);
+    });
+  });
+
+  // ── Nav scroll state ──────────────────────────────────────────
+  const nav = document.getElementById('site-nav');
+  const sentinel = document.getElementById('nav-sentinel');
+  const wordmarkAion = document.querySelector('.wordmark-aion');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const navBtn = document.querySelector('.nav-btn');
+
+  function setScrolled(scrolled) {
+    nav.style.background = scrolled ? 'var(--surface)' : 'transparent';
+    nav.style.boxShadow = scrolled ? 'var(--shadow-nav)' : 'none';
+    wordmarkAion.style.color = scrolled ? 'var(--charcoal)' : 'var(--white)';
+    navLinks.forEach(l => {
+      l.style.color = scrolled ? 'var(--stone)' : 'rgba(255,255,255,0.82)';
+    });
+    if (navBtn) {
+      navBtn.style.borderColor = scrolled ? 'var(--line-ink-strong)' : 'var(--line-light)';
+      navBtn.style.color = scrolled ? 'var(--charcoal)' : 'var(--white)';
+    }
+  }
+
+  new IntersectionObserver(entries => {
+    setScrolled(!entries[0].isIntersecting);
+  }, { threshold: 0 }).observe(sentinel);
+
+  // ── Scroll reveal ─────────────────────────────────────────────
+  const revealIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); revealIo.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => revealIo.observe(el));
+
+  // ── Contact form ──────────────────────────────────────────────
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('f-name').value.trim() || 'friend';
+    const msg = document.getElementById('contact-success-msg');
+    msg.innerHTML = `Thank you, ${name}.<br>We'll be in touch shortly.`;
+    this.style.display = 'none';
+    const success = document.getElementById('contact-success');
+    success.style.display = 'flex';
+  });
+
+  // ── Image upload helper ───────────────────────────────────────
+  function setupImageSlot(wrapperId, inputId, imgId) {
+    const wrap = document.getElementById(wrapperId);
+    const input = document.getElementById(inputId);
+    const img = document.getElementById(imgId);
+    const hint = wrap.querySelector('[id$="-hint"]');
+
+    function applyFile(file) {
+      if (!file || !file.type.startsWith('image/')) return;
+      const url = URL.createObjectURL(file);
+      img.src = url;
+      img.style.display = 'block';
+      if (hint) hint.style.display = 'none';
+    }
+
+    input.addEventListener('change', () => applyFile(input.files[0]));
+    wrap.addEventListener('dragover', e => { e.preventDefault(); wrap.style.outline = '1px solid var(--gold-45)'; });
+    wrap.addEventListener('dragleave', () => { wrap.style.outline = ''; });
+    wrap.addEventListener('drop', e => {
+      e.preventDefault();
+      wrap.style.outline = '';
+      applyFile(e.dataTransfer.files[0]);
+    });
+  }
+
+  setupImageSlot('hero-band', 'hero-band-input', 'hero-band-img');
+  setupImageSlot('market-photo', 'market-photo-input', 'market-photo-img');
+</script>
+</body>
+</html>
