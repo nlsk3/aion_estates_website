@@ -224,7 +224,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: none;
+      display: block;
     }
     #hero-band-placeholder {
       position: absolute;
@@ -523,7 +523,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: none;
+      display: block;
     }
     #market-photo-hint {
       position: absolute;
@@ -701,7 +701,7 @@
   <!-- Horizontal image band -->
   <div id="hero-band" title="Click or drop an image here">
     <input type="file" id="hero-band-input" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2;">
-    <img id="hero-band-img" alt="Hero">
+    <img id="hero-band-img" alt="Hero" src="project/uploads/hero-bg.webp">
     <div id="hero-band-placeholder"></div>
     <div id="hero-band-left-scrim"></div>
     <div id="hero-band-tb-scrim"></div>
@@ -778,7 +778,7 @@
     </div>
     <div id="market-photo" title="Click or drop a photo here">
       <input type="file" id="market-photo-input" accept="image/*" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:2;">
-      <img id="market-photo-img" alt="Market">
+      <img id="market-photo-img" alt="Market" src="project/uploads/market-photo.webp">
       <div id="market-photo-hint"><span>Drop a photo</span></div>
     </div>
   </div>
